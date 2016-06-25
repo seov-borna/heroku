@@ -2,35 +2,25 @@
 (function(){
 
 class QuestsComponent {
-  constructor($http) {
+  constructor($http, QuestService) {
     var vm = this;
 
-    $http.get('/api/quests')
-    .success(function(data) {
-      vm.quests = data;
-      console.log(vm.quests);
-    })
-    .error(function(err) {
-      alert('Error! Something went wrong');
-    });
+    vm.quests = QuestService.query();
 
     vm.createQuest = function(){
-      $http.post('/api/quests', vm.newQuest)
-      .success(function(){
+      vm.newQuest = new QuestService(vm.newQuest);
+      vm.newQuest.$save(function() {
         vm.quests.push(vm.newQuest);
         vm.newQuest = {};
-      })
-      .error(function(err){
+      }, function() {
         alert('Error! Something went wrong');
       });
     };
 
     vm.deleteQuest = function(index){
-      $http.delete('/api/quests/' + vm.quests[index]._id)
-      .success(function(){
+      vm.quests[index].$delete(function() {
         vm.quests.splice(index, 1);
-      })
-      .error(function(err){
+      }, function() {
         alert('Error! Something went wrong');
       });
     };
@@ -40,11 +30,8 @@ class QuestsComponent {
     };
 
     vm.updateQuest = function(index){
-      $http.put('/api/quests/' + vm.quests[index]._id, vm.quests[index])
-      .success(function(){
-        vm.quests[index].edit = false;
-      })
-      .error(function(err){
+      vm.quests[index].$update(function() {
+      }, function() {
         alert('Error! Something went wrong');
       });
     };
