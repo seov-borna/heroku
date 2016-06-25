@@ -15,6 +15,6 @@ var MissionSchema = new _mongoose2.default.Schema({
   info: String,
   quests: [{ type: _mongoose2.default.Schema.Types.ObjectId, ref: 'Quest' }]
 });
-//
+
 exports.default = _mongoose2.default.model('Mission', MissionSchema);
 //# sourceMappingURL=mission.model.js.map
