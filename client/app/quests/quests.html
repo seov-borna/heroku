@@ -1,0 +1,42 @@
+<div class="container">
+	<h1>Games</h1>
+	  
+	<div class="row">
+	  	<table class="table table-striped">
+		    <thead>
+		      <th>Title</th>
+		      <th>Info</th>
+		      <th>Complete</th>
+		      <th>Actions</th>
+		    </thead>
+		    <tbody>
+		      	<tr ng-repeat="quest in quests">
+			        <td ng-hide="quest.edit">{{quest.title}}</td>
+			        <td ng-show="quest.edit"><input type="text" ng-model="quest.title"></td>
+
+			        <td ng-hide="quest.edit">{{quest.info}}</td>
+			        <td ng-show="quest.edit"><input type="text" ng-model="quest.info"></td>
+
+			        <td ng-hide="quest.edit"><input type="checkbox" ng-model="quest.complete" disabled></td>
+			        <td ng-show="quest.edit"><input type="checkbox" ng-model="quest.complete"></td>
+
+			        <td ng-hide="quest.edit">
+			          <button class="btn btn-success" ng-click="toggleEdit($index)">Edit</button>
+			          <button class="btn btn-danger" ng-click="deleteQuest($index)">Delete</button>
+			        </td>
+			        <td ng-show="quest.edit">
+			          <button class="btn btn-primary" ng-click="updateQuest($index)">Save</button>
+			          <button class="btn btn-danger" ng-click="toggleEdit($index)">Cancel</button>
+			        </td>
+		      	</tr>
+		      	<tr>
+				    <td><input type="text" ng-model="newQuest.title"></td>
+				    <td><input type="text" ng-model="newQuest.info"></td>
+				    <td>
+				        <button class="btn btn-primary" ng-click="createQuest()">Add New</button>
+				    </td>
+			    </tr>
+		    </tbody>
+		</table>
+	</div>
+</div>
