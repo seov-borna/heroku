@@ -19,6 +19,6 @@ module.exports = {
           process.env.MONGOHQ_URL ||
           process.env.OPENSHIFT_MONGODB_DB_URL +
           process.env.OPENSHIFT_APP_NAME ||
-          'mongodb://megapuncher:cyberman95@ds023674.mlab.com:23674/lifedb'
+          'mongodb://root:1234@ds023674.mlab.com:23674/lifedb'
   }
 };
