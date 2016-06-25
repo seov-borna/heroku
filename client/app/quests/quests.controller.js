@@ -2,47 +2,47 @@
 (function(){
 
 class QuestsComponent {
-  constructor($http, $scope) {
-    this.message = 'Hello';
+  constructor($http) {
+    var vm = this;
 
     $http.get('/api/quests')
     .success(function(data) {
-      $scope.quests = data;
-      console.log($scope.quests);
+      vm.quests = data;
+      console.log(vm.quests);
     })
     .error(function(err) {
       alert('Error! Something went wrong');
     });
 
-    $scope.createQuest = function(){
-      $http.post('/api/quests', $scope.newQuest)
+    vm.createQuest = function(){
+      $http.post('/api/quests', vm.newQuest)
       .success(function(){
-        $scope.quests.push($scope.newQuest);
-        $scope.newQuest = {};
+        vm.quests.push(vm.newQuest);
+        vm.newQuest = {};
       })
       .error(function(err){
         alert('Error! Something went wrong');
       });
     };
 
-    $scope.deleteQuest = function(index){
-      $http.delete('/api/quests/' + $scope.quests[index]._id)
+    vm.deleteQuest = function(index){
+      $http.delete('/api/quests/' + vm.quests[index]._id)
       .success(function(){
-        $scope.quests.splice(index, 1);
+        vm.quests.splice(index, 1);
       })
       .error(function(err){
         alert('Error! Something went wrong');
       });
     };
 
-    $scope.toggleEdit = function(index){
-      $scope.quests[index].edit = !$scope.quests[index].edit;
+    vm.toggleEdit = function(index){
+      vm.quests[index].edit = !vm.quests[index].edit;
     };
 
-    $scope.updateQuest = function(index){
-      $http.put('/api/quests/' + $scope.quests[index]._id, $scope.quests[index])
+    vm.updateQuest = function(index){
+      $http.put('/api/quests/' + vm.quests[index]._id, vm.quests[index])
       .success(function(){
-        $scope.quests[index].edit = false;
+        vm.quests[index].edit = false;
       })
       .error(function(err){
         alert('Error! Something went wrong');
@@ -55,7 +55,8 @@ class QuestsComponent {
 angular.module('lifeApp')
   .component('quests', {
     templateUrl: 'app/quests/quests.html',
-    controller: QuestsComponent
+    controller: QuestsComponent,
+    controllerAs: 'ctrl'
   });
 
 })();
