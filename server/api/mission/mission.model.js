@@ -7,5 +7,5 @@ var MissionSchema = new mongoose.Schema({
   info: String,
   quests: [{type: mongoose.Schema.Types.ObjectId, ref: 'Quest'}]
 });
-
+//
 export default mongoose.model('Mission', MissionSchema);

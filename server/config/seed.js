@@ -64,8 +64,6 @@ var quest1 = new Quest({
 
 quest1.save();
 
-
-
 /*Quest.find({}).remove()
   .then(() => {
     Quest.create({
