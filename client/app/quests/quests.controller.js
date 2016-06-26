@@ -2,13 +2,15 @@
 (function(){
 
 class QuestsComponent {
-  constructor($http, QuestService) {
+  constructor($http, Quest, Mission) {
     var vm = this;
 
-    vm.quests = QuestService.query();
+    vm.quests = Quest.query();
+    vm.missions = Mission.query();
+    vm.newQuest = null;
 
     vm.createQuest = function(){
-      vm.newQuest = new QuestService(vm.newQuest);
+      vm.newQuest = new Quest(vm.newQuest);
       vm.newQuest.$save(function() {
         vm.quests.push(vm.newQuest);
         vm.newQuest = {};

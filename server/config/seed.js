@@ -62,7 +62,15 @@ var quest1 = new Quest({
       mission: mission1._id
     });
 
+var quest2 = new Quest({
+      title: 'Test Quest',
+      info: 'Test Info',
+      complete: false,
+      mission: mission1._id
+    });
+
 quest1.save();
+quest2.save();
 
 /*Quest.find({}).remove()
   .then(() => {

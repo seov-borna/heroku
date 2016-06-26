@@ -33,6 +33,7 @@
 		      	<tr>
 				    <td><input type="text" ng-model="ctrl.newQuest.title"></td>
 				    <td><input type="text" ng-model="ctrl.newQuest.info"></td>
+				    <td><select ng-options="mission.title for mission in ctrl.missions track by mission._id" ng-model="ctrl.newQuest.mission"></select></td>
 				    <td>
 				        <button class="btn btn-primary" ng-click="ctrl.createQuest()">Add New</button>
 				    </td>

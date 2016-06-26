@@ -61,14 +61,14 @@ function handleError(res, statusCode) {
 
 // Gets a list of Quests
 export function index(req, res) {
-  return Quest.find().exec()
+  return Quest.find().populate('mission').exec()
     .then(respondWithResult(res))
     .catch(handleError(res));
 }
 
 // Gets a single Quest from the DB
 export function show(req, res) {
-  return Quest.findById(req.params.id).exec()
+  return Quest.findById(req.params.id).populate('mission').exec()
     .then(handleEntityNotFound(res))
     .then(respondWithResult(res))
     .catch(handleError(res));
