@@ -86,7 +86,7 @@ export function update(req, res) {
   if (req.body._id) {
     delete req.body._id;
   }
-  return Mission.findById(req.params.id).exec()
+  return Mission.findById(req.params.id).populate('quests').exec()
     .then(handleEntityNotFound(res))
     .then(saveUpdates(req.body))
     .then(respondWithResult(res))

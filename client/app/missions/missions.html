@@ -1,52 +1,56 @@
-<div class="container">
-	<h1>Missions</h1>
-	<h2>{{ctrl.message}}</h2>
-	  
-	<div class="row">
-	  	<table class="table table-striped">
-		    <thead>
-		      <th>Title</th>
-		      <th>Info</th>
-		      <th>Actions</th>
-		    </thead>
-		    <tbody ng-repeat="mission in ctrl.missions">
-		      	<tr>
-			        <td ng-hide="mission.edit">{{mission.title}}</td>
-			        <td ng-show="mission.edit"><input type="text" ng-model="mission.title"></td>
+<div id="missions-page">
+	<div class="container">
+		<h1>Missions</h1>
+		<h2>{{ctrl.message}}</h2>
+		  
+		<div class="row">
+			<div class="col-sm-4">
+				<div id="questbookLeft">
+					<div class="navigation-panel">
+						<div class="row">
+							<missions-navigation></missions-navigation>
+						</div>
+						<div class="row">
+							<button ng-show="!ctrl.newMission" class="btn btn-primary" ng-click="ctrl.addMission()">Add Mission</button>
+							<button ng-show="ctrl.newMission" class="btn btn-danger" ng-click="ctrl.cancelAction()">Cancel</button>
+						  	<div ng-show="ctrl.newMission">
+								<input type="text" ng-model="ctrl.newMission.title">
+								<input type="text" ng-model="ctrl.newMission.info">
+								<button class="btn btn-default" ng-click="ctrl.createMission()">Save</button>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col-sm-4">
+				<div id="questbookRight">
+					{{ ctrl.currentObject.type }}
+					<div ng-hide="ctrl.currentObject.edit">
+						<h3>{{ ctrl.currentObject.title }}</h3> <!-- Complete: <input type="checkbox" ng-model="quest.complete" disabled> -->
+						<p>{{ ctrl.currentObject.info }}</p>
 
-			        <td ng-hide="mission.edit">{{mission.info}}</td>
-			        <td ng-show="mission.edit"><input type="text" ng-model="mission.info"></td>
+						<button ng-show="ctrl.currentObject.type === 'MISSION' && !ctrl.newQuest" class="btn btn-primary" ng-click="ctrl.addQuest()">Add Quest</button>
+						<button ng-show="!ctrl.newQuest" class="btn btn-success" ng-click="ctrl.toggleEdit()">Edit</button>
+			          	<button ng-show="!ctrl.newQuest" class="btn btn-danger" ng-click="ctrl.deleteMission()">Delete</button>
+					</div>
 
-			        <td ng-hide="mission.edit">
-			        	<button class="btn btn-default" ng-click="ctrl.showMission($index)">Info</button>
-			          	<button class="btn btn-success" ng-click="ctrl.toggleEdit($index)">Edit</button>
-			          	<button class="btn btn-danger" ng-click="ctrl.deleteMission($index)">Delete</button>
-			        </td>
-			        <td ng-show="mission.edit">
-			        	<button class="btn btn-default" ng-click="ctrl.showMission($index)">Info</button>
-			          	<button class="btn btn-primary" ng-click="ctrl.updateMission($index)">Save</button>
-			          	<button class="btn btn-danger" ng-click="ctrl.toggleEdit($index)">Cancel</button>
-			        </td>
-		      	</tr>
-		      	<tr class="collapse" data-id="{{ mission._id }}">
-		    		<td colspan="8">
-		    			<div ng-repeat="quest in mission.quests">
-		    				<h4>Quest: {{ quest.title }}</h4>
-		    				<p>{{ quest.info }}</p>
-		    				Complete: <input type="checkbox" ng-model="quest.complete" disabled>
-		    			</div>
-		    		</td>
-		    	</tr>
-			</tbody>
-			<tbody>
-		      	<tr>
-				    <td><input type="text" ng-model="ctrl.newMission.title"></td>
-				    <td><input type="text" ng-model="ctrl.newMission.info"></td>
-				    <td>
-				        <button class="btn btn-primary" ng-click="ctrl.createMission()">Add New</button>
-				    </td>
-			    </tr>
-		    </tbody>
-		</table>
+					<div ng-show="ctrl.currentObject.edit">
+						<h3><input type="text" ng-model="ctrl.currentObject.title"></h3>
+						<p><input type="text" ng-model="ctrl.currentObject.info"></p>
+
+						<button class="btn btn-primary" ng-click="ctrl.updateMission()">Save</button>
+					</div>
+
+					<button ng-show="ctrl.newQuest || ctrl.currentObject.edit" class="btn btn-danger" ng-click="ctrl.cancelAction()">Cancel</button>
+
+					<div ng-show="ctrl.newQuest">
+						<input type="text" ng-model="ctrl.newQuest.title">
+						<input type="text" ng-model="ctrl.newQuest.info">
+						<select ng-options="mission.title for mission in ctrl.missions track by mission._id" ng-model="ctrl.newQuest.mission"></select>
+						<button class="btn btn-default" ng-click="ctrl.createQuest()">Save</button>
+					</div>
+				</div>
+			</div>
+		</div>
 	</div>
 </div>

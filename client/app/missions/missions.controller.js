@@ -2,21 +2,30 @@
 (function(){
 
 class MissionsComponent {
-  constructor(Mission, Quest) {
+  constructor(Mission, Quest, $state, $uibModal, $scope) {
     var vm = this;
 
     vm.missions = null;
 
-    vm.showMission = showMission;
+    vm.newMission = null;
+    vm.newQuest = null;
+
+    vm.showObject = showObject;
+    vm.currentObject = null;
 
     activate();
 
     function activate() {
     	Mission.query(function(missions) {
 	    	vm.missions = missions;
+        vm.currentObject = vm.missions[0];
 	    }, function() {
 	    	alert('Error! Something went wrong');
 	    });
+    }
+
+    vm.addMission = function() {
+      vm.newMission = {};
     }
 
     vm.createMission = function(){
@@ -29,29 +38,66 @@ class MissionsComponent {
       });
     };
 
-    vm.deleteMission = function(index){
-      vm.missions[index].$delete(function() {
-        vm.missions.splice(index, 1);
+    vm.deleteMission = function(){
+      if(vm.currentObject.type === 'QUEST') {
+        vm.currentObject = new Quest(vm.currentObject);
+      }
+      vm.currentObject.$delete(function() {
+        //TODO if mission -> delete all quests
+
+        $state.go($state.current, {}, {reload: true});
       }, function() {
         alert('Error! Something went wrong');
       });
     };
 
-    vm.toggleEdit = function(index){
-      vm.missions[index].edit = !vm.missions[index].edit;
+    vm.toggleEdit = function(){
+      vm.currentObject.edit = !vm.currentObject.edit;
     };
 
-    vm.updateMission = function(index){
-      vm.missions[index].$update(function() {
+    vm.updateMission = function() {
+      if(vm.currentObject.type === 'QUEST') {
+        vm.currentObject.edit = false;
+        vm.currentObject = new Quest(vm.currentObject);
+      }
+      vm.currentObject.$update(function(object) {
+        vm.currentObject = object;
       }, function() {
         alert('Error! Something went wrong');
       });
     };
 
-    function showMission(index) {
-    	var selector = '.collapse[data-id="' + vm.missions[index]._id + '"]';
-		$(selector).toggle();
+    function showObject(object) {
+      vm.currentObject = object;
+      vm.currentObject.type = object.mission ? 'QUEST' : 'MISSION';
+      console.log(vm.currentObject);
     }
+
+    vm.addQuest = function() {
+      vm.newQuest = {};
+    }
+
+    vm.createQuest = function() {
+      vm.newQuest = new Quest(vm.newQuest);
+      vm.newQuest.$save(function() {
+        vm.currentObject.quests.push(vm.newQuest);
+        vm.newQuest = null;
+      }, function() {
+        alert('Error! Something went wrong');
+      });
+    };
+
+    vm.cancelAction = function() {
+      if(vm.currentObject.edit) {
+        vm.currentObject.edit = false;
+      }
+      if (vm.newQuest) {
+        vm.newQuest = null;
+      }
+      if(vm.newMission) {
+        vm.newMission = null;
+      }
+    };
 
   }
 }

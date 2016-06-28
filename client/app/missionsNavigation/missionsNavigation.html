@@ -1,0 +1,25 @@
+<div class="menu-list">
+
+		<ul id="menu-content" class="menu-content collapse out">
+			<missions-navigation-items ng-repeat="mission in ctrl.missions">
+				<li ng-if="!mission.quests">
+					<a id="{{::mission.id}}" ng-click="ctrl.showObject(mission)">
+						<i class="fa {{::mission.icon}} fa-lg"></i> {{ mission.title }}
+					</a>
+				</li>
+
+				<li ng-click="mission.collapsed = !mission.collapsed" class="collapsed" ng-if="mission.quests">
+					<a id="{{::mission.id}}" ng-click="ctrl.showObject(mission)">
+						<i class="icon icon-list"></i> {{ mission.title }} <span class="arrow"></span>
+					</a>
+				</li>
+				<ul uib-collapse="mission.collapsed" class="sub-menu" id="{{::mission.id}}-missions" ng-if="mission.quests">
+					<li ng-repeat="quest in mission.quests">
+						<a id="{{::quest.id}}" ng-click="ctrl.showObject(quest)">
+							<span>{{ quest.title }} <i ng-if="quest.complete" class="fa fa-check"></i></span>
+						</a>
+					</li>
+				</ul>
+			</missions-navigation-missions>
+		</ul>
+	</div>

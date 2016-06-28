@@ -1,0 +1,118 @@
+missions-navigation {
+
+    font-size: 1.1em;
+
+    .toggle-btn {
+        display: none;
+    }
+
+    ul {
+        list-style: none;
+        padding: 0px;
+        margin: 0px;
+        cursor: pointer;
+
+        li {
+          padding-left: 0px;
+
+            a {
+                text-decoration: none;
+                color: #a9a5a4;
+                display: block;
+
+                i.icon.icon-list {
+                    padding-left: 10px;
+                    width: 20px;
+                    padding-right: 20px;
+                    background-image: url('../assets/images/list-decoration.png');
+                    background-repeat: no-repeat;
+                    background-position: center center;
+                }
+            }
+        }
+
+        li:hover {
+            a {
+                color: #ffffff;
+                text-decoration: none;
+            }
+        }
+
+        li.active {
+            a {
+                background-color: #ffffff;
+            }
+        }
+
+        .sub-menu {
+            li {
+                list-style: none;
+                margin-left: 20px;
+
+                a {
+                    color: #deda82;
+                }
+            }
+
+            li.active {
+                background-color: #efefef;
+
+                a {
+                    color: #deda82;
+                }
+            }
+
+            li:hover {
+                a {
+                    color: #fcfc12;
+                }
+            }
+
+            li a span:before {
+                font-family: FontAwesome;
+                content: "\f105";
+                display: inline-block;
+                padding-left: 10px;
+                padding-right: 10px;
+                vertical-align: middle;
+            }
+        }
+
+        :not(collapsed) .arrow:before,
+        :not(collapsed) .arrow:before {
+            font-family: FontAwesome;
+            content: "\f078";
+            display: inline-block;
+            padding-left: 10px;
+            padding-right: 10px;
+            vertical-align: middle;
+            float: right;
+        }
+    }
+
+    @media (max-width: 767px) {
+        position: relative;
+        width: 100%;
+        margin-bottom: 10px;
+
+        .toggle-btn {
+            display: block;
+            cursor: pointer;
+            position: absolute;
+            right: 10px;
+            top: 10px;
+            z-index: 10 !important;
+            padding: 3px;
+            background-color: #777777;
+            color: #000;
+            width: 40px;
+            text-align: center;
+          }
+    }
+    
+    @media (min-width: 767px) {
+        .menu-list .menu-content {
+            display: block;
+        }
+    }
+}
