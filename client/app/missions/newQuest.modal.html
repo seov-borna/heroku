@@ -1,0 +1,12 @@
+<div class="modal-header">
+    <h3 class="modal-title">I'm a modal!</h3>
+</div>
+<div class="modal-body">
+	<input type="text" ng-model="crudCtrl.newQuest.title">
+	<input type="text" ng-model="crudCtrl.newQuest.info">
+	<select ng-options="mission.title for mission in crudCtrl.missions track by mission._id" ng-model="crudCtrl.newQuest.mission"></select>
+</div>
+<div class="modal-footer">
+    <button class="btn btn-primary" ng-click="crudCtrl.createQuest()">Save</button>
+    <button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button>
+</div>

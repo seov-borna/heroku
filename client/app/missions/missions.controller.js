@@ -7,11 +7,10 @@ class MissionsComponent {
 
     vm.missions = null;
 
-    vm.newMission = null;
-    vm.newQuest = null;
-
     vm.showObject = showObject;
     vm.currentObject = null;
+
+    var crudModalSettings = null;
 
     activate();
 
@@ -22,50 +21,18 @@ class MissionsComponent {
 	    }, function() {
 	    	alert('Error! Something went wrong');
 	    });
+
+      crudModalSettings = {
+        templateUrl: 'app/missions/newMission.modal.html',
+        controller: 'QuestbookCrudController',
+        controllerAs: 'crudCtrl',
+        resolve : {
+          questbookObject: function () {
+            return vm.currentObject;
+          }
+        }
+      };
     }
-
-    vm.addMission = function() {
-      vm.newMission = {};
-    }
-
-    vm.createMission = function(){
-      vm.newMission = new Mission(vm.newMission);
-      vm.newMission.$save(function() {
-        vm.missions.push(vm.newMission);
-        vm.newMission = {};
-      }, function() {
-        alert('Error! Something went wrong');
-      });
-    };
-
-    vm.deleteMission = function(){
-      if(vm.currentObject.type === 'QUEST') {
-        vm.currentObject = new Quest(vm.currentObject);
-      }
-      vm.currentObject.$delete(function() {
-        //TODO if mission -> delete all quests
-
-        $state.go($state.current, {}, {reload: true});
-      }, function() {
-        alert('Error! Something went wrong');
-      });
-    };
-
-    vm.toggleEdit = function(){
-      vm.currentObject.edit = !vm.currentObject.edit;
-    };
-
-    vm.updateMission = function() {
-      if(vm.currentObject.type === 'QUEST') {
-        vm.currentObject.edit = false;
-        vm.currentObject = new Quest(vm.currentObject);
-      }
-      vm.currentObject.$update(function(object) {
-        vm.currentObject = object;
-      }, function() {
-        alert('Error! Something went wrong');
-      });
-    };
 
     function showObject(object) {
       vm.currentObject = object;
@@ -73,31 +40,22 @@ class MissionsComponent {
       console.log(vm.currentObject);
     }
 
-    vm.addQuest = function() {
-      vm.newQuest = {};
+    // newMission -- editMission -- newQuest -- editQuest
+    vm.openCrudModal = function(action) {
+      var modalSettings = crudModalSettings;
+      modalSettings.templateUrl = 'app/missions/' + action + '.modal.html';
+      instantiateModal(modalSettings);
     }
 
-    vm.createQuest = function() {
-      vm.newQuest = new Quest(vm.newQuest);
-      vm.newQuest.$save(function() {
-        vm.currentObject.quests.push(vm.newQuest);
-        vm.newQuest = null;
-      }, function() {
-        alert('Error! Something went wrong');
-      });
-    };
+    function instantiateModal(modalSettings) {
+      var modalInstance = $uibModal.open(modalSettings);
 
-    vm.cancelAction = function() {
-      if(vm.currentObject.edit) {
-        vm.currentObject.edit = false;
-      }
-      if (vm.newQuest) {
-        vm.newQuest = null;
-      }
-      if(vm.newMission) {
-        vm.newMission = null;
-      }
-    };
+      modalInstance.result.then(function (object) {
+        $state.go($state.current, {}, {reload: true});
+      }, function () {
+        console.log('dismissed');
+      });
+    }
 
   }
 }

@@ -1,8 +1,7 @@
 <div id="missions-page">
 	<div class="container">
 		<h1>Missions</h1>
-		<h2>{{ctrl.message}}</h2>
-		  
+
 		<div class="row">
 			<div class="col-sm-4">
 				<div id="questbookLeft">
@@ -11,13 +10,7 @@
 							<missions-navigation></missions-navigation>
 						</div>
 						<div class="row">
-							<button ng-show="!ctrl.newMission" class="btn btn-primary" ng-click="ctrl.addMission()">Add Mission</button>
-							<button ng-show="ctrl.newMission" class="btn btn-danger" ng-click="ctrl.cancelAction()">Cancel</button>
-						  	<div ng-show="ctrl.newMission">
-								<input type="text" ng-model="ctrl.newMission.title">
-								<input type="text" ng-model="ctrl.newMission.info">
-								<button class="btn btn-default" ng-click="ctrl.createMission()">Save</button>
-							</div>
+							<button type="button" class="btn btn-default" ng-click="ctrl.openCrudModal('newMission')">New Mission</button>
 						</div>
 					</div>
 				</div>
@@ -25,29 +18,14 @@
 			<div class="col-sm-4">
 				<div id="questbookRight">
 					{{ ctrl.currentObject.type }}
-					<div ng-hide="ctrl.currentObject.edit">
-						<h3>{{ ctrl.currentObject.title }}</h3> <!-- Complete: <input type="checkbox" ng-model="quest.complete" disabled> -->
+					<div>
+						<h3>{{ ctrl.currentObject.title }}</h3> 
 						<p>{{ ctrl.currentObject.info }}</p>
 
-						<button ng-show="ctrl.currentObject.type === 'MISSION' && !ctrl.newQuest" class="btn btn-primary" ng-click="ctrl.addQuest()">Add Quest</button>
-						<button ng-show="!ctrl.newQuest" class="btn btn-success" ng-click="ctrl.toggleEdit()">Edit</button>
-			          	<button ng-show="!ctrl.newQuest" class="btn btn-danger" ng-click="ctrl.deleteMission()">Delete</button>
-					</div>
-
-					<div ng-show="ctrl.currentObject.edit">
-						<h3><input type="text" ng-model="ctrl.currentObject.title"></h3>
-						<p><input type="text" ng-model="ctrl.currentObject.info"></p>
-
-						<button class="btn btn-primary" ng-click="ctrl.updateMission()">Save</button>
-					</div>
-
-					<button ng-show="ctrl.newQuest || ctrl.currentObject.edit" class="btn btn-danger" ng-click="ctrl.cancelAction()">Cancel</button>
-
-					<div ng-show="ctrl.newQuest">
-						<input type="text" ng-model="ctrl.newQuest.title">
-						<input type="text" ng-model="ctrl.newQuest.info">
-						<select ng-options="mission.title for mission in ctrl.missions track by mission._id" ng-model="ctrl.newQuest.mission"></select>
-						<button class="btn btn-default" ng-click="ctrl.createQuest()">Save</button>
+						<button ng-show="ctrl.currentObject.type === 'MISSION'" class="btn btn-primary" ng-click="ctrl.openCrudModal('newQuest')">Add Quest</button>
+						<button ng-show="ctrl.currentObject.type === 'QUEST'" class="btn btn-success" ng-click="ctrl.openCrudModal('editQuest')">Edit Quest</button>
+						<button ng-show="ctrl.currentObject.type === 'MISSION'" class="btn btn-success" ng-click="ctrl.openCrudModal('editMission')">Edit Mission</button>
+						
 					</div>
 				</div>
 			</div>
