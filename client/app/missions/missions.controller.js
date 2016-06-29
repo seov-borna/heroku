@@ -2,10 +2,14 @@
 (function(){
 
 class MissionsComponent {
-  constructor(Mission, Quest, $state, $uibModal, $scope) {
+  constructor(Story, Mission, Quest, $state, $uibModal, $scope) {
     var vm = this;
 
+    vm.stories = null;
     vm.missions = null;
+
+    vm.currentStory = null;
+    vm.changeStory = changeStory;
 
     vm.showObject = showObject;
     vm.currentObject = null;
@@ -15,12 +19,18 @@ class MissionsComponent {
     activate();
 
     function activate() {
-    	Mission.query(function(missions) {
-	    	vm.missions = missions;
-        vm.currentObject = vm.missions[0];
-	    }, function() {
-	    	alert('Error! Something went wrong');
-	    });
+      Story.query(function(stories) {
+        vm.stories = stories;
+        vm.currentStory = vm.stories[0];
+        if(vm.currentStory.missions.length > 0) {
+          vm.missions = vm.currentStory.missions;
+          vm.currentObject = vm.missions[0];
+        } else {
+          vm.currentObject = {};
+        }
+      }, function() {
+        alert('Error! Something went wrong');
+      });
 
       crudModalSettings = {
         templateUrl: 'app/missions/newMission.modal.html',
@@ -34,6 +44,11 @@ class MissionsComponent {
       };
     }
 
+    function changeStory() {
+      console.log(vm.currentStory);
+      vm.missions = vm.currentStory.missions;
+    }
+
     function showObject(object) {
       vm.currentObject = object;
       vm.currentObject.type = object.mission ? 'QUEST' : 'MISSION';
@@ -45,7 +60,7 @@ class MissionsComponent {
       var modalSettings = crudModalSettings;
       modalSettings.templateUrl = 'app/missions/' + action + '.modal.html';
       instantiateModal(modalSettings);
-    }
+    };
 
     function instantiateModal(modalSettings) {
       var modalInstance = $uibModal.open(modalSettings);

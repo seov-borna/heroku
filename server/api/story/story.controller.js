@@ -1,16 +1,16 @@
 /**
  * Using Rails-like standard naming convention for endpoints.
- * GET     /api/missions              ->  index
- * POST    /api/missions              ->  create
- * GET     /api/missions/:id          ->  show
- * PUT     /api/missions/:id          ->  update
- * DELETE  /api/missions/:id          ->  destroy
+ * GET     /api/stories              ->  index
+ * POST    /api/stories              ->  create
+ * GET     /api/stories/:id          ->  show
+ * PUT     /api/stories/:id          ->  update
+ * DELETE  /api/stories/:id          ->  destroy
  */
 
 'use strict';
 
 import _ from 'lodash';
-import Mission from './mission.model';
+import Story from './story.model';
 
 function respondWithResult(res, statusCode) {
   statusCode = statusCode || 200;
@@ -59,43 +59,52 @@ function handleError(res, statusCode) {
   };
 }
 
-// Gets a list of Missions
+// Gets a list of Storys
 export function index(req, res) {
-  return Mission.find().populate('quests story').exec()
-    .then(respondWithResult(res))
+  return Story.find().lean().populate('missions').exec(function(err, stories) {
+    var options = {
+      path: 'missions.quests',
+      model: 'Quest'
+    };
+
+    Story.populate(stories, options, function(err, missions) {
+      res.json(missions);
+    });
+  })
+    /*.then(respondWithResult(res))*/
     .catch(handleError(res));
 }
 
-// Gets a single Mission from the DB
+// Gets a single Story from the DB
 export function show(req, res) {
-  return Mission.findById(req.params.id).populate('quests story').exec()
+  return Story.findById(req.params.id).populate('missions').exec()
     .then(handleEntityNotFound(res))
     .then(respondWithResult(res))
     .catch(handleError(res));
 }
 
-// Creates a new Mission in the DB
+// Creates a new Story in the DB
 export function create(req, res) {
-  return Mission.create(req.body)
+  return Story.create(req.body)
     .then(respondWithResult(res, 201))
     .catch(handleError(res));
 }
 
-// Updates an existing Mission in the DB
+// Updates an existing Story in the DB
 export function update(req, res) {
   if (req.body._id) {
     delete req.body._id;
   }
-  return Mission.findById(req.params.id).populate('quests story').exec()
+  return Story.findById(req.params.id).populate('missions').exec()
     .then(handleEntityNotFound(res))
     .then(saveUpdates(req.body))
     .then(respondWithResult(res))
     .catch(handleError(res));
 }
 
-// Deletes a Mission from the DB
+// Deletes a Story from the DB
 export function destroy(req, res) {
-  return Mission.findById(req.params.id).exec()
+  return Story.findById(req.params.id).exec()
     .then(handleEntityNotFound(res))
     .then(removeEntity(res))
     .catch(handleError(res));

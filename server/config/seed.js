@@ -5,6 +5,7 @@
 
 'use strict';
 import Thing from '../api/thing/thing.model';
+import Story from '../api/story/story.model';
 import Mission from '../api/mission/mission.model';
 import Quest from '../api/quest/quest.model';
 import User from '../api/user/user.model';
@@ -41,10 +42,48 @@ Thing.find({}).remove()
     });
   });
 
+  Story.find({}).remove()
+  .then(() => {
+    Story.create({
+      title: 'Amusement & Consumption',
+      info: ''
+    }, {
+      title: 'Appearance & Conversation',
+      info: ''
+    }, {
+      title: 'Creativity & Productivity',
+      info: ''
+    }, {
+      title: 'Education & Career',
+      info: ''
+    }, {
+      title: 'Exercise & Health',
+      info: ''
+    }, {
+      title: 'Generosity & Responsibility',
+      info: ''
+    }, {
+      title: 'Mentality & Gratitude',
+      info: ''
+    })
+    .then(() => {
+      console.log('finished populating quests');
+    });
+  });
+
+var story = new Story({
+      title: 'Test Story',
+      info: 'Fitness INFO',
+      missions: []
+    });
+
+story.save();
+
 var mission1 = new Mission({
       title: 'Wall of Inspiration',
       info: 'You need to create a wall of inspiration with photo galleries in order to remind yourself of whats important after all.',
-      quests: []
+      quests: [],
+      story: story._id
     });
 
 Mission.find({}).remove()
@@ -69,8 +108,16 @@ var quest2 = new Quest({
       mission: mission1._id
     });
 
-quest1.save();
-quest2.save();
+/*quest1.save();
+quest2.save();*/
+
+Quest.find({}).remove()
+  .then(() => {
+    Quest.create(quest1)
+    .then(() => {
+      console.log('finished populating missions');
+    });
+  }); 
 
 /*Quest.find({}).remove()
   .then(() => {

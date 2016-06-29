@@ -1,9 +1,10 @@
 (function () {
 	'use strict';
 
-	function QuestbookCrudController(Mission, Quest, $scope, $uibModalInstance, questbookObject) {
+	function QuestbookCrudController(Story, Mission, Quest, $scope, $uibModalInstance, questbookObject) {
 		var vm = this;
 
+		vm.stories = Story.query();
 		vm.missions = Mission.query();
 
 		vm.newMission = null;

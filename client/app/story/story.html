@@ -1,0 +1,40 @@
+<div class="container">
+	<h1>Stories</h1>
+	<h2>{{ctrl.message}}</h2>
+	  
+	<div class="row">
+	  	<table class="table table-striped">
+		    <thead>
+		      <th>Title</th>
+		      <th>Info</th>
+		      <th>Complete</th>
+		      <th>Actions</th>
+		    </thead>
+		    <tbody>
+		      	<tr ng-repeat="story in ctrl.stories">
+			        <td ng-hide="story.edit">{{story.title}}</td>
+			        <td ng-show="story.edit"><input type="text" ng-model="story.title"></td>
+
+			        <td ng-hide="story.edit">{{story.info}}</td>
+			        <td ng-show="story.edit"><input type="text" ng-model="story.info"></td>
+
+			        <td ng-hide="story.edit">
+			          <button class="btn btn-success" ng-click="ctrl.toggleEdit($index)">Edit</button>
+			          <button class="btn btn-danger" ng-click="ctrl.deleteStory($index)">Delete</button>
+			        </td>
+			        <td ng-show="story.edit">
+			          <button class="btn btn-primary" ng-click="ctrl.updateStory($index)">Save</button>
+			          <button class="btn btn-danger" ng-click="ctrl.toggleEdit($index)">Cancel</button>
+			        </td>
+		      	</tr>
+		      	<tr>
+				    <td><input type="text" ng-model="ctrl.newStory.title"></td>
+				    <td><input type="text" ng-model="ctrl.newStory.info"></td>
+				    <td>
+				        <button class="btn btn-primary" ng-click="ctrl.createStory()">Add New</button>
+				    </td>
+			    </tr>
+		    </tbody>
+		</table>
+	</div>
+</div>

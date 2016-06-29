@@ -1,7 +1,6 @@
 'use strict';
 
 import mongoose from 'mongoose';
-
 import relationship from 'mongoose-relationship';
 
 var QuestSchema = new mongoose.Schema({

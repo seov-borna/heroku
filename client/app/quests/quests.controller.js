@@ -29,6 +29,7 @@ class QuestsComponent {
 
     vm.toggleEdit = function(index){
       vm.quests[index].edit = !vm.quests[index].edit;
+      console.log(vm.quests[index]);
     };
 
     vm.updateQuest = function(index){

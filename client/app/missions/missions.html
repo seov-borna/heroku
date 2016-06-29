@@ -5,6 +5,7 @@
 		<div class="row">
 			<div class="col-sm-4">
 				<div id="questbookLeft">
+					<select ng-options="story.title for story in ctrl.stories track by story._id" ng-model="ctrl.currentStory" ng-change="ctrl.changeStory()"></select>
 					<div class="navigation-panel">
 						<div class="row">
 							<missions-navigation></missions-navigation>
