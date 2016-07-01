@@ -47,7 +47,7 @@ class MissionsComponent {
 
     function showObject(object) {
       vm.currentObject = object;
-      vm.currentObject.type = object.mission ? 'QUEST' : 'MISSION';
+      vm.currentObject.objectType = object.mission ? 'QUEST' : 'MISSION';
       console.log(vm.currentObject);
     }
 

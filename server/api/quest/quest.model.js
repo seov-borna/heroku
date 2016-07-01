@@ -7,6 +7,7 @@ var QuestSchema = new mongoose.Schema({
   title: String,
   info: String,
   complete: { type: Boolean, default: false },
+  type: {type: String, enum: ['DEFAULT', 'DAILY', 'URGENT', 'IMPORTANT'], default: 'DEFAULT'},
   mission: {type: mongoose.Schema.ObjectId, ref: 'Mission', childPath: 'quests'}
 });
 

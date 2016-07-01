@@ -38,7 +38,7 @@ missions-navigation {
                 }
 
                 span.story-inline {
-                    color: #ff6666;
+                    color: #e59441;
                 }
             }
 
@@ -79,6 +79,18 @@ missions-navigation {
                 a {
                     color: #deda82;
                 }
+            }
+
+            li[data-quest-type="DAILY"] {
+                a { color: #b2ffb2; }
+            }
+
+            li[data-quest-type="URGENT"] {
+                a { color: #ff7575; }
+            }
+
+            li[data-quest-type="IMPORTANT"] {
+                a { color: #a3d1ff; }
             }
 
             li.active {

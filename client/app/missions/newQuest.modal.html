@@ -21,6 +21,11 @@
 		<label for="mission">Mission</label>
 		<select id="mission" ng-options="mission.title for mission in crudCtrl.missions track by mission._id" ng-model="crudCtrl.newQuest.mission" class="form-control"></select>
 	</fieldset>
+
+	<fieldset class="form-group">
+		<label for="type">Type</label>
+		<select id="type" ng-options="type for type in crudCtrl.questTypes" ng-model="crudCtrl.newQuest.type" class="form-control"></select>
+	</fieldset>
 </div>
 <div class="modal-footer">
     <button class="btn btn-primary" ng-click="crudCtrl.createQuest()">Save</button>

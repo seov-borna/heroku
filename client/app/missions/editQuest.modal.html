@@ -16,6 +16,11 @@
 		<label for="complete">Complete</label>
 		<input id="complete" type="checkbox" ng-model="crudCtrl.quest.complete">
 	</fieldset>
+
+	<fieldset class="form-group">
+		<label for="type">Type</label>
+		<select id="type" ng-options="type for type in crudCtrl.questTypes" ng-model="crudCtrl.quest.type" class="form-control"></select>
+	</fieldset>
 </div>
 <div class="modal-footer">
     <button class="btn btn-primary" ng-click="crudCtrl.updateQuest()">Save</button>

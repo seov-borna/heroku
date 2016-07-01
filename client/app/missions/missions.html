@@ -21,14 +21,14 @@
 			</div>
 			<div class="col-sm-4">
 				<div id="questbookRight">
-					{{ ctrl.currentObject.type }}
+					{{ ctrl.currentObject.objectType }}
 					<div>
 						<h3>{{ ctrl.currentObject.title }}</h3> 
 						<p>{{ ctrl.currentObject.info }}</p>
 
-						<button ng-show="ctrl.currentObject.type === 'MISSION'" class="btn btn-primary" ng-click="ctrl.openCrudModal('newQuest')">Add Quest</button>
-						<button ng-show="ctrl.currentObject.type === 'QUEST'" class="btn btn-success" ng-click="ctrl.openCrudModal('editQuest')">Edit Quest</button>
-						<button ng-show="ctrl.currentObject.type === 'MISSION'" class="btn btn-success" ng-click="ctrl.openCrudModal('editMission')">Edit Mission</button>
+						<button ng-show="ctrl.currentObject.objectType === 'MISSION'" class="btn btn-primary" ng-click="ctrl.openCrudModal('newQuest')">Add Quest</button>
+						<button ng-show="ctrl.currentObject.objectType === 'QUEST'" class="btn btn-success" ng-click="ctrl.openCrudModal('editQuest')">Edit Quest</button>
+						<button ng-show="ctrl.currentObject.objectType === 'MISSION'" class="btn btn-success" ng-click="ctrl.openCrudModal('editMission')">Edit Mission</button>
 						
 					</div>
 				</div>

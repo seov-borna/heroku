@@ -13,17 +13,19 @@
 		vm.quest = null;
 
 		vm.missionStatuses = null;
+		vm.questTypes = null;
 
 		activate();
 
 		function activate() {
-			if(questbookObject.type === 'QUEST') {
+			if(questbookObject.objectType === 'QUEST') {
 	        	vm.quest = new Quest(questbookObject);
 	      	} else {
 	      		vm.mission = new Mission(questbookObject);
 	      	}
 
 	      	vm.missionStatuses = ['UPCOMING', 'PRESENT', 'COMPLETE'];
+	      	vm.questTypes = ['DEFAULT', 'DAILY', 'URGENT', 'IMPORTANT'];
 		}
 
 		vm.createMission = function(){
