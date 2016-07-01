@@ -61,17 +61,17 @@ function handleError(res, statusCode) {
 
 // Gets a list of Storys
 export function index(req, res) {
-  return Story.find().lean().populate('missions').exec(function(err, stories) {
-    var options = {
-      path: 'missions.quests',
-      model: 'Quest'
-    };
-
-    Story.populate(stories, options, function(err, missions) {
-      res.json(missions);
-    });
-  })
-    /*.then(respondWithResult(res))*/
+  return Story.find().lean().populate({ 
+     path: 'missions',
+     populate: [{
+       path: 'quests',
+       model: 'Quest'
+     }, {
+       path: 'story',
+       model: 'Story'
+     }]
+  }).exec()
+    .then(respondWithResult(res))
     .catch(handleError(res));
 }
 

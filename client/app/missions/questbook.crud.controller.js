@@ -12,6 +12,8 @@
 		vm.newQuest = null;
 		vm.quest = null;
 
+		vm.missionStatuses = null;
+
 		activate();
 
 		function activate() {
@@ -20,6 +22,8 @@
 	      	} else {
 	      		vm.mission = new Mission(questbookObject);
 	      	}
+
+	      	vm.missionStatuses = ['UPCOMING', 'PRESENT', 'COMPLETE'];
 		}
 
 		vm.createMission = function(){

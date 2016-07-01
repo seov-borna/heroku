@@ -11,6 +11,11 @@
 		<label for="info">Info</label>
 		<textarea id="info" ng-model="crudCtrl.mission.info" class="form-control"></textarea>
 	</fieldset>
+
+	<fieldset class="form-group">
+		<label for="status">Status</label>
+		<select id="status" ng-options="status for status in crudCtrl.missionStatuses" ng-model="crudCtrl.mission.status" ng-change="crudCtrl.refreshMissions()" class="form-control"></select>
+	</fieldset>
 </div>
 <div class="modal-footer">
     <button class="btn btn-primary" ng-click="crudCtrl.updateMission()">Save</button>

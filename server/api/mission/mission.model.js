@@ -6,6 +6,7 @@ import relationship from 'mongoose-relationship';
 var MissionSchema = new mongoose.Schema({
   title: String,
   info: String,
+  status: {type: String, enum: ['UPCOMING', 'PRESENT', 'COMPLETE'], default: 'UPCOMING'},
   quests: [{type: mongoose.Schema.Types.ObjectId, ref: 'Quest'}],
   story: {type: mongoose.Schema.ObjectId, ref: 'Story', childPath: 'missions'}
 });

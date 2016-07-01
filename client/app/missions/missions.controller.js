@@ -9,10 +9,11 @@ class MissionsComponent {
     vm.missions = null;
 
     vm.currentStory = null;
-    vm.changeStory = changeStory;
 
     vm.showObject = showObject;
     vm.currentObject = null;
+
+    vm.filter = {present: true};
 
     var crudModalSettings = null;
 
@@ -21,16 +22,13 @@ class MissionsComponent {
     function activate() {
       Story.query(function(stories) {
         vm.stories = stories;
-        vm.currentStory = vm.stories[0];
-        
-        if(vm.currentStory.missions.length > 0) {
-          vm.missions = vm.currentStory.missions;
-          vm.currentObject = vm.missions[0];
-        } else {
-          vm.currentObject = {};
-        }
-
         vm.stories.push({title: 'ALL STORIES'});
+        vm.currentStory = {title: 'ALL STORIES'};
+        
+        Mission.query(function(missions) {
+          vm.missions = getPresentMissions(missions);
+        });
+        vm.currentObject = {};
       }, function() {
         alert('Error! Something went wrong');
       });
@@ -45,14 +43,6 @@ class MissionsComponent {
           }
         }
       };
-    }
-
-    function changeStory() {
-      if(vm.currentStory.title === 'ALL STORIES') {
-        vm.missions = Mission.query();
-      } else {
-        vm.missions = vm.currentStory.missions;
-      }
     }
 
     function showObject(object) {
@@ -76,6 +66,23 @@ class MissionsComponent {
       }, function () {
         console.log('dismissed');
       });
+    }
+
+    vm.toggleFilter = function() {
+      if(vm.currentStory.title === 'ALL STORIES') {
+        vm.missions = vm.filter.present ? getPresentMissions(vm.missions) : Mission.query();
+      } else {
+        vm.missions = vm.filter.present ? getPresentMissions(vm.currentStory.missions) : vm.currentStory.missions;
+      }
+    }
+
+    function getPresentMissions(missions) {
+      var presentMissions = [];
+      angular.forEach(missions, function(mission) {
+        if(mission.status === 'PRESENT')
+          presentMissions.push(mission);
+      });
+      return presentMissions;
     }
 
   }

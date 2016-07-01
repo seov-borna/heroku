@@ -5,8 +5,9 @@
 		<div class="row">
 			<div class="col-sm-5">
 				<div id="questbookLeft">
-					<select ng-options="story.title for story in ctrl.stories track by story._id" ng-model="ctrl.currentStory" ng-change="ctrl.changeStory()" class="form-control">
+					<select ng-options="story.title for story in ctrl.stories track by story._id" ng-model="ctrl.currentStory" ng-change="ctrl.toggleFilter()" class="form-control">
 					</select>
+					<label>Present<input type="checkbox" ng-model="ctrl.filter.present" ng-change="ctrl.toggleFilter()"></label>
 					<div class="navigation-panel">
 						<div class="row">
 							<missions-navigation></missions-navigation>
