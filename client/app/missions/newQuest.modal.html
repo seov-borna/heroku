@@ -1,10 +1,21 @@
 <div class="modal-header">
-    <h3 class="modal-title">I'm a modal!</h3>
+    <h3 class="modal-title">New Quest!</h3>
 </div>
 <div class="modal-body">
-	<input type="text" ng-model="crudCtrl.newQuest.title">
-	<input type="text" ng-model="crudCtrl.newQuest.info">
-	<select ng-options="mission.title for mission in crudCtrl.missions track by mission._id" ng-model="crudCtrl.newQuest.mission"></select>
+	<fieldset class="form-group">
+		<label for="title">Title</label>
+		<input id="title" type="text" ng-model="crudCtrl.newQuest.title" class="form-control">
+	</fieldset>
+
+	<fieldset class="form-group">
+		<label for="info">Info</label>
+		<textarea id="info" ng-model="crudCtrl.newQuest.info" class="form-control"></textarea>
+	</fieldset>
+
+	<fieldset class="form-group">
+		<label for="mission">Mission</label>
+		<select id="mission" ng-options="mission.title for mission in crudCtrl.missions track by mission._id" ng-model="crudCtrl.newQuest.mission" class="form-control"></select>
+	</fieldset>
 </div>
 <div class="modal-footer">
     <button class="btn btn-primary" ng-click="crudCtrl.createQuest()">Save</button>

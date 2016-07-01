@@ -20,21 +20,44 @@ missions-navigation {
                 color: #a9a5a4;
                 display: block;
 
-                i.icon.icon-list {
+                i.icon {
                     padding-left: 10px;
                     width: 20px;
                     padding-right: 20px;
-                    background-image: url('../assets/images/list-decoration.png');
+                    
                     background-repeat: no-repeat;
                     background-position: center center;
                 }
+
+                i.icon.icon-list-plus {
+                    background-image: url('../assets/images/wow_plus.png');
+                }
+
+                i.icon.icon-list-minus {
+                    background-image: url('../assets/images/wow_minus.png');
+                }
             }
+
+            -webkit-touch-callout: none; /* iOS Safari */
+            -webkit-user-select: none;   /* Chrome/Safari/Opera */
+            -khtml-user-select: none;    /* Konqueror */
+            -moz-user-select: none;      /* Firefox */
+            -ms-user-select: none;       /* Internet Explorer/Edge */
+            user-select: none;           /* Non-prefixed version, currently not supported by any browser */
         }
 
         li:hover {
             a {
                 color: #ffffff;
                 text-decoration: none;
+
+                i.icon.icon-list-plus {
+                    background-image: url('../assets/images/wow_plus_hover.png');
+                }
+
+                i.icon.icon-list-minus {
+                    background-image: url('../assets/images/wow_minus_hover.png');
+                }
             }
         }
 

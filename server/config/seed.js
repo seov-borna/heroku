@@ -45,25 +45,25 @@ Thing.find({}).remove()
   Story.find({}).remove()
   .then(() => {
     Story.create({
-      title: 'Amusement & Consumption',
+      title: '1. Amusement & Consumption',
       info: ''
     }, {
-      title: 'Appearance & Conversation',
+      title: '2. Appearance & Conversation',
       info: ''
     }, {
-      title: 'Creativity & Productivity',
+      title: '3. Creativity & Productivity',
       info: ''
     }, {
-      title: 'Education & Career',
+      title: '4. Education & Career',
       info: ''
     }, {
-      title: 'Exercise & Health',
+      title: '5. Exercise & Health',
       info: ''
     }, {
-      title: 'Generosity & Responsibility',
+      title: '6. Generosity & Responsibility',
       info: ''
     }, {
-      title: 'Mentality & Gratitude',
+      title: '7. Mentality & Gratitude',
       info: ''
     })
     .then(() => {

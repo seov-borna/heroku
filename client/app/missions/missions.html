@@ -3,13 +3,14 @@
 		<h1>Missions</h1>
 
 		<div class="row">
-			<div class="col-sm-4">
+			<div class="col-sm-5">
 				<div id="questbookLeft">
-					<select ng-options="story.title for story in ctrl.stories track by story._id" ng-model="ctrl.currentStory" ng-change="ctrl.changeStory()"></select>
+					<select ng-options="story.title for story in ctrl.stories track by story._id" ng-model="ctrl.currentStory" ng-change="ctrl.changeStory()" class="form-control"></select>
 					<div class="navigation-panel">
 						<div class="row">
 							<missions-navigation></missions-navigation>
 						</div>
+						<br>
 						<div class="row">
 							<button type="button" class="btn btn-default" ng-click="ctrl.openCrudModal('newMission')">New Mission</button>
 						</div>
