@@ -79,6 +79,10 @@
 	      });
 	    };
 
+	    vm.refreshMissions = function(storyIndex) {
+	    	vm.missions = vm.newQuest.story.missions;
+	    }
+
 	    $scope.cancel = function () {
 			$uibModalInstance.dismiss('cancel');
 		};

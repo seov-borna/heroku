@@ -13,6 +13,11 @@
 	</fieldset>
 
 	<fieldset class="form-group">
+		<label for="story">Story</label>
+		<select id="story" ng-options="story.title for story in crudCtrl.stories track by story._id" ng-model="crudCtrl.newQuest.story" ng-change="crudCtrl.refreshMissions()" class="form-control"></select>
+	</fieldset>
+
+	<fieldset class="form-group">
 		<label for="mission">Mission</label>
 		<select id="mission" ng-options="mission.title for mission in crudCtrl.missions track by mission._id" ng-model="crudCtrl.newQuest.mission" class="form-control"></select>
 	</fieldset>

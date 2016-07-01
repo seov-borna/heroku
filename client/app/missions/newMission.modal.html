@@ -14,7 +14,9 @@
 
 	<fieldset class="form-group">
 		<label for="story">Story</label>
-		<select id="story" ng-options="story.title for story in crudCtrl.stories track by story._id" ng-model="crudCtrl.newMission.story" class="form-control"></select>
+		<select id="story" ng-options="story.title for story in crudCtrl.stories track by story._id" ng-model="crudCtrl.newMission.story" class="form-control">
+			<option value="">-- select --</option>
+		</select>
 	</fieldset>
 </div>
 <div class="modal-footer">

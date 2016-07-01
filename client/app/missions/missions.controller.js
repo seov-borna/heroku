@@ -22,12 +22,15 @@ class MissionsComponent {
       Story.query(function(stories) {
         vm.stories = stories;
         vm.currentStory = vm.stories[0];
+        
         if(vm.currentStory.missions.length > 0) {
           vm.missions = vm.currentStory.missions;
           vm.currentObject = vm.missions[0];
         } else {
           vm.currentObject = {};
         }
+
+        vm.stories.push({title: 'ALL STORIES'});
       }, function() {
         alert('Error! Something went wrong');
       });
@@ -45,8 +48,11 @@ class MissionsComponent {
     }
 
     function changeStory() {
-      console.log(vm.currentStory);
-      vm.missions = vm.currentStory.missions;
+      if(vm.currentStory.title === 'ALL STORIES') {
+        vm.missions = Mission.query();
+      } else {
+        vm.missions = vm.currentStory.missions;
+      }
     }
 
     function showObject(object) {
