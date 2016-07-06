@@ -13,7 +13,8 @@ class QuestbookComponent {
     vm.showObject = showObject;
     vm.currentObject = null;
 
-    vm.filter = {present: true};
+    vm.missionStatuses = null;
+    vm.filter = 'PRESENT';
 
     var crudModalSettings = null;
 
@@ -32,6 +33,8 @@ class QuestbookComponent {
       }, function() {
         alert('Error! Something went wrong');
       });
+
+      vm.missionStatuses = ['UPCOMING', 'PRESENT', 'COMPLETE'];
 
       crudModalSettings = {
         controllerAs: 'crudCtrl',
@@ -69,18 +72,21 @@ class QuestbookComponent {
 
     vm.toggleFilter = function() {
       if(vm.currentStory.title === 'ALL STORIES') {
-        vm.missions = vm.filter.present ? getPresentMissions(vm.missions) : Mission.query();
+        Mission.query(function(missions) {
+          vm.missions = getPresentMissions(missions);
+        });
       } else {
-        vm.missions = vm.filter.present ? getPresentMissions(vm.currentStory.missions) : vm.currentStory.missions;
+        vm.missions = getPresentMissions(vm.currentStory.missions);
       }
     }
 
     function getPresentMissions(missions) {
       var presentMissions = [];
       angular.forEach(missions, function(mission) {
-        if(mission.status === 'PRESENT')
+        if(mission.status === vm.filter)
           presentMissions.push(mission);
       });
+      console.log(presentMissions);
       return presentMissions;
     }
   }
