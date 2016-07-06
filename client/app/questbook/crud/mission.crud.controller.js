@@ -9,23 +9,15 @@
 
 		vm.newMission = null;
 		vm.mission = null;
-		vm.newQuest = null;
-		vm.quest = null;
 
 		vm.missionStatuses = null;
-		vm.questTypes = null;
 
 		activate();
 
 		function activate() {
-			if(questbookObject.objectType === 'QUEST') {
-	        	vm.quest = new Quest(questbookObject);
-	      	} else {
-	      		vm.mission = new Mission(questbookObject);
-	      	}
+	      	vm.mission = new Mission(questbookObject);
 
 	      	vm.missionStatuses = ['UPCOMING', 'PRESENT', 'COMPLETE'];
-	      	vm.questTypes = ['DEFAULT', 'DAILY', 'URGENT', 'IMPORTANT'];
 		}
 
 		vm.createMission = function(){
@@ -59,10 +51,6 @@
 	        alert('Error! Something went wrong');
 	      });
 	    };
-
-	    vm.refreshMissions = function(storyIndex) {
-	    	vm.missions = vm.newQuest.story.missions;
-	    }
 
 	    $scope.cancel = function () {
 			$uibModalInstance.dismiss('cancel');

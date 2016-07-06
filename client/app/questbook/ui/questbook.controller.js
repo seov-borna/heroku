@@ -52,7 +52,7 @@ class QuestbookComponent {
     // newMission -- editMission -- newQuest -- editQuest
     vm.openCrudModal = function(action) {
       var modalSettings = crudModalSettings;
-      modalSettings.controller = action.indexOf('Mission') > -1 ? 'MissionCrudController' : 'QuestCrudController';
+      modalSettings.controller = action.indexOf('Mission') > -1 ? 'MissionCrudController' : action+'CrudController';
       modalSettings.templateUrl = 'app/questbook/crud/' + action + '.modal.html';
       instantiateModal(modalSettings);
     };
