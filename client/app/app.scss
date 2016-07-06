@@ -19,8 +19,8 @@ $fa-font-path: "../bower_components/font-awesome/fonts";
 /* inject:scss */
 @import 'admin/admin.scss';
 @import 'main/main.scss';
-@import 'missions/missions.scss';
 @import 'missionsNavigation/missionsNavigation.scss';
+@import 'questbook/ui/questbook.scss';
 @import 'quests/quests.scss';
 @import 'story/story.scss';
 @import '../components/footer/footer.scss';

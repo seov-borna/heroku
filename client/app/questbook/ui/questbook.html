@@ -1,0 +1,38 @@
+<div id="missions-page">
+	<div class="container">
+		<h1>Missions</h1>
+
+		<div class="row">
+			<div class="col-sm-5">
+				<div id="questbookLeft">
+					<select ng-options="story.title for story in ctrl.stories track by story._id" ng-model="ctrl.currentStory" ng-change="ctrl.toggleFilter()" class="form-control">
+					</select>
+					<label>Present<input type="checkbox" ng-model="ctrl.filter.present" ng-change="ctrl.toggleFilter()"></label>
+					<div class="navigation-panel">
+						<div class="row">
+							<missions-navigation></missions-navigation>
+						</div>
+						<br>
+						<div class="row">
+							<button type="button" class="btn btn-default" ng-click="ctrl.openCrudModal('newMission')">New Mission</button>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col-sm-4">
+				<div id="questbookRight">
+					{{ ctrl.currentObject.objectType }}
+					<div>
+						<h3>{{ ctrl.currentObject.title }}</h3> 
+						<p>{{ ctrl.currentObject.info }}</p>
+
+						<button ng-show="ctrl.currentObject.objectType === 'MISSION'" class="btn btn-primary" ng-click="ctrl.openCrudModal('newQuest')">Add Quest</button>
+						<button ng-show="ctrl.currentObject.objectType === 'QUEST'" class="btn btn-success" ng-click="ctrl.openCrudModal('editQuest')">Edit Quest</button>
+						<button ng-show="ctrl.currentObject.objectType === 'MISSION'" class="btn btn-success" ng-click="ctrl.openCrudModal('editMission')">Edit Mission</button>
+						
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
