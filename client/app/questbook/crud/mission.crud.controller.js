@@ -1,11 +1,11 @@
 (function () {
 	'use strict';
 
-	function MissionCrudController(Story, Mission, Quest, $scope, $uibModalInstance, questbookObject) {
+	function MissionCrudController(Story, Mission, Quest, $scope, $uibModalInstance, questbookObject, User) {
 		var vm = this;
 
-		vm.stories = Story.query();
-		vm.missions = Mission.query();
+		vm.stories = null;
+		vm.missions = null;
 
 		vm.newMission = null;
 		vm.mission = null;
@@ -15,10 +15,26 @@
 		activate();
 
 		function activate() {
+
+			User.get(function(currentUser) {
+		        vm.stories = angular.copy(currentUser.stories);
+		        vm.missions = getMissionsByStories(vm.stories);
+	    	});
+
 	      	vm.mission = new Mission(questbookObject);
 
 	      	vm.missionStatuses = ['UPCOMING', 'PRESENT', 'COMPLETE'];
 		}
+
+		function getMissionsByStories(stories) {
+	      var missions = [];
+	      angular.forEach(stories, function(story) {
+	        angular.forEach(story.missions, function(mission) {
+	          missions.push(mission);
+	        });
+	      });
+	      return missions;
+	    }
 
 		vm.createMission = function(){
 	      vm.newMission = new Mission(vm.newMission);

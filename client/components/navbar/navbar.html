@@ -16,7 +16,7 @@
         </li>
         <li ng-show="nav.isAdmin()" ui-sref-active="active"><a ui-sref="admin">Admin</a></li>
         <li ui-sref-active="active"><a ui-sref="questbook">Questbook</a></li>
-        <li ui-sref-active="active"><a ui-sref="quests">Quests</a></li>
+        <li ng-show="nav.isAdmin()" ui-sref-active="active"><a ui-sref="quests">Quests</a></li>
       </ul>
 
       <ul class="nav navbar-nav navbar-right">
