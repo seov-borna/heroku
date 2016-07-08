@@ -2,15 +2,19 @@
 (function(){
 
 class StoryComponent {
-  constructor(Story) {
+  constructor(Story, Auth) {
   	var vm = this;
     vm.message = 'Hello';
 
-    vm.stories = Story.query();
+    Story.query(function(stories) {
+      vm.stories = stories;
+      console.log(vm.stories);
+    });
 
     vm.newStory = null;
 
     vm.createStory = function(){
+      vm.newStory.user = Auth.getCurrentUser();
       vm.newStory = new Story(vm.newStory);
       vm.newStory.$save(function() {
         vm.stories.push(vm.newStory);

@@ -42,6 +42,27 @@ Thing.find({}).remove()
     });
   });
 
+  var testUser = new User({
+      provider: 'local',
+      name: 'Test User',
+      email: 'test@example.com',
+      password: 'test'
+    });
+
+  User.find({}).remove()
+    .then(() => {
+      User.create(testUser, {
+        provider: 'local',
+        role: 'admin',
+        name: 'Admin',
+        email: 'admin@example.com',
+        password: 'admin'
+      })
+      .then(() => {
+        console.log('finished populating users');
+      });
+    });
+
   Story.find({}).remove()
   .then(() => {
     Story.create({
@@ -118,38 +139,3 @@ Quest.find({}).remove()
       console.log('finished populating missions');
     });
   }); 
-
-/*Quest.find({}).remove()
-  .then(() => {
-    Quest.create({
-      title: 'Build Quest Management Tool',
-      info: 'A Quest Management Tool is needed in order to document progression of tasks.',
-      complete: true
-    }, {
-      title: 'Build Mission Management Tool',
-      info: 'A Mission Management Tool is needed in order to document progression of missions.',
-      complete: false
-    })
-    .then(() => {
-      console.log('finished populating quests');
-    });
-  });  */
-
-User.find({}).remove()
-  .then(() => {
-    User.create({
-      provider: 'local',
-      name: 'Test User',
-      email: 'test@example.com',
-      password: 'test'
-    }, {
-      provider: 'local',
-      role: 'admin',
-      name: 'Admin',
-      email: 'admin@example.com',
-      password: 'admin'
-    })
-    .then(() => {
-      console.log('finished populating users');
-    });
-  });

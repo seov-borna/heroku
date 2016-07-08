@@ -2,7 +2,7 @@
 (function(){
 
 class QuestbookComponent {
-  constructor(Story, Mission, Quest, $state, $uibModal, $scope) {
+  constructor(Story, Mission, Quest, $state, $uibModal, $scope, User) {
     var vm = this;
 
     vm.stories = null;
@@ -21,17 +21,16 @@ class QuestbookComponent {
     activate();
 
     function activate() {
-      Story.query(function(stories) {
-        vm.stories = stories;
+      User.get(function(currentUser) {
+
+        vm.stories = angular.copy(currentUser.stories);
+        var missions = getMissionsByStories(vm.stories);
+        vm.missions = getMissionsByFilter(missions);
+
         vm.stories.push({title: 'ALL STORIES'});
         vm.currentStory = {title: 'ALL STORIES'};
-        
-        Mission.query(function(missions) {
-          vm.missions = getPresentMissions(missions);
-        });
+
         vm.currentObject = {};
-      }, function() {
-        alert('Error! Something went wrong');
       });
 
       vm.missionStatuses = ['UPCOMING', 'PRESENT', 'COMPLETE'];
@@ -44,6 +43,16 @@ class QuestbookComponent {
           }
         }
       };
+    }
+
+    function getMissionsByStories(stories) {
+      var missions = [];
+      angular.forEach(stories, function(story) {
+        angular.forEach(story.missions, function(mission) {
+          missions.push(mission);
+        });
+      });
+      return missions;
     }
 
     function showObject(object) {
@@ -72,21 +81,19 @@ class QuestbookComponent {
 
     vm.toggleFilter = function() {
       if(vm.currentStory.title === 'ALL STORIES') {
-        Mission.query(function(missions) {
-          vm.missions = getPresentMissions(missions);
-        });
+        var missions = getMissionsByStories(vm.stories);
+        vm.missions = getMissionsByFilter(missions);
       } else {
-        vm.missions = getPresentMissions(vm.currentStory.missions);
+        vm.missions = getMissionsByFilter(vm.currentStory.missions);
       }
     }
 
-    function getPresentMissions(missions) {
+    function getMissionsByFilter(missions) {
       var presentMissions = [];
       angular.forEach(missions, function(mission) {
         if(mission.status === vm.filter)
           presentMissions.push(mission);
       });
-      console.log(presentMissions);
       return presentMissions;
     }
   }

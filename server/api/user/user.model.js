@@ -37,7 +37,8 @@ var UserSchema = new Schema({
   provider: String,
   salt: String,
   google: {},
-  github: {}
+  github: {},
+  stories: [{type: mongoose.Schema.Types.ObjectId, ref: 'Story'}]
 });
 
 /**
@@ -121,9 +122,9 @@ var validatePresenceOf = function(value) {
 UserSchema
   .pre('save', function(next) {
     // Handle new/update passwords
-    if (!this.isModified('password')) {
+    /*if (!this.isModified('password')) {
       return next();
-    }
+    }*/
 
     if (!validatePresenceOf(this.password)) {
       if (authTypes.indexOf(this.provider) === -1) {

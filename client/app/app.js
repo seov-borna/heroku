@@ -8,4 +8,6 @@ angular.module('lifeApp', ['lifeApp.auth', 'lifeApp.admin', 'lifeApp.constants',
     $urlRouterProvider.otherwise('/');
 
     $locationProvider.html5Mode(true);
+  }).run(function(Auth, $rootScope) {
+  	
   });
