@@ -7,7 +7,9 @@
 		vm.stories = null;
 		vm.missions = null;
 
-		vm.newMission = null;
+		vm.newMission = {
+			status: 'PRESENT'
+		};
 		vm.mission = null;
 
 		vm.missionStatuses = null;

@@ -18,6 +18,11 @@
 			<option value="">-- select --</option>
 		</select>
 	</fieldset>
+
+	<fieldset class="form-group">
+		<label for="status">Status</label>
+		<select id="status" ng-options="status for status in crudCtrl.missionStatuses" ng-model="crudCtrl.newMission.status" ng-change="crudCtrl.refreshMissions()" class="form-control"></select>
+	</fieldset>
 </div>
 <div class="modal-footer">
     <button class="btn btn-primary" ng-click="crudCtrl.createMission()">Save</button>
