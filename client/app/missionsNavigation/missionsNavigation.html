@@ -14,7 +14,7 @@
 					</a>
 				</li>
 				<ul uib-collapse="mission.collapsed" class="sub-menu" id="{{::mission._id}}-missions" ng-if="mission.quests">
-					<li ng-repeat="quest in mission.quests" data-quest-type="{{quest.type}}">
+					<li ng-repeat="quest in mission.quests" data-quest-type="{{quest.type}}" ng-class="{complete: quest.complete}">
 						<a id="{{::quest._id}}" ng-click="ctrl.showObject(quest)">
 							<span>{{ quest.title }} <i ng-if="quest.complete" class="fa fa-check"></i></span>
 						</a>
